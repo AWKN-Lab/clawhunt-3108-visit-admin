@@ -1,0 +1,9 @@
+
+> clawhunt-3108-visit-admin@1.0.0 screenshots
+> node scripts/screenshots.mjs
+
+shot: schedule-week.png
+shot: schedule-batch-modal.png
+shot: booking-list.png
+shot: sync-errors.png
+SCREENSHOTS: PASS (4 张)

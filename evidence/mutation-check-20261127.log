@@ -1,0 +1,15 @@
+
+> clawhunt-3108-visit-admin@1.0.0 mutation
+> node scripts/mutation_check.cjs
+
+=== A 相：全量测试 ===
+A 相：exit=0，通过 14 项
+=== B1 相：maskPhone 返回原号，AC2 应变红 ===
+B1 相：exit=1（预期非 0）
+=== B2 相：批量重试只发第一条，AC3 应变红 ===
+B2 相：exit=1（预期非 0）
+=== C 相：全量测试（恢复后）===
+C 相：exit=0，通过 14 项
+MUTATION CHECK: PASS
+masking SHA256（变异前后一致）: 5beb36656d76b8cab0520ee9185273f7f3f1527d8cab350a8a977d3cb796d8ab
+api SHA256（变异前后一致）: 7b82e0a46751118431f85d80d119d556d1c06ad3be3fe12f812e7792e79a6c50

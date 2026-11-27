@@ -1,0 +1,101 @@
+=== 1/5 安装依赖（npm ci）===
+npm warn deprecated whatwg-encoding@3.1.1: Use @exodus/bytes instead for a more spec-conformant and faster implementation
+
+added 240 packages in 37s
+=== 2/5 构建（tsc + vite build）===
+
+> clawhunt-3108-visit-admin@1.0.0 build
+> tsc -p tsconfig.json && vite build
+
+vite v6.4.6 building for production...
+transforming...
+✓ 4138 modules transformed.
+rendering chunks...
+computing gzip size...
+dist/index.html                   0.46 kB │ gzip:   0.35 kB
+dist/assets/index-DvcXb-YW.css   92.56 kB │ gzip:   9.42 kB
+dist/assets/index-DHd7ATET.js   611.00 kB │ gzip: 198.44 kB
+
+(!) Some chunks are larger than 500 kB after minification. Consider:
+- Using dynamic import() to code-split the application
+- Use build.rollupOptions.output.manualChunks to improve chunking: https://rollupjs.org/configuration-options/#output-manualchunks
+- Adjust chunk size limit for this warning via build.chunkSizeWarningLimit.
+✓ built in 28.96s
+=== 3/5 全量测试 ===
+
+> clawhunt-3108-visit-admin@1.0.0 test
+> vitest run
+
+
+ RUN  v3.2.7 /home/hatch/workspace/goals/20/hidden_files/bid-optimize-20261127/3108-build/repo
+
+ ✓ tests/test_ac2_masking.test.tsx (6 tests) 998ms
+   ✓ AC2 预约名单访客打码 > 名单表格显示打码后的姓名与手机号，不出现完整手机号  383ms
+ ✓ tests/test_ac3_batch_retry.test.tsx (3 tests) 1381ms
+   ✓ AC3 同步异常批量重试 > 勾选 3 条并点击批量重试后，mock 收到 3 次重试请求  976ms
+ ✓ tests/test_ac1_close_slot.test.tsx (5 tests) 2216ms
+   ✓ AC1 关闭含已确认预约的时段 > 关闭含 2 个已确认预约的时段，确认框显示将取消的预约数量  932ms
+   ✓ AC1 关闭含已确认预约的时段 > 关闭无已确认预约的时段，确认框显示将取消 0 个预约  457ms
+   ✓ AC1 关闭含已确认预约的时段 > 确认关闭后时段变已关闭，消息报已取消 2 个预约  496ms
+   ✓ AC1 关闭含已确认预约的时段 > 关闭时段不填原因时不进入确认框  318ms
+
+ Test Files  3 passed (3)
+      Tests  14 passed (14)
+   Start at  11:48:24
+   Duration  25.86s (transform 6.67s, setup 4.50s, collect 54.35s, tests 4.59s, environment 7.56s, prepare 1.66s)
+
+=== 4/5 变异自证 ===
+
+> clawhunt-3108-visit-admin@1.0.0 mutation
+> node scripts/mutation_check.cjs
+
+=== A 相：全量测试 ===
+A 相：exit=0，通过 14 项
+=== B1 相：maskPhone 返回原号，AC2 应变红 ===
+B1 相：exit=1（预期非 0）
+=== B2 相：批量重试只发第一条，AC3 应变红 ===
+B2 相：exit=1（预期非 0）
+=== C 相：全量测试（恢复后）===
+C 相：exit=0，通过 14 项
+MUTATION CHECK: PASS
+masking SHA256（变异前后一致）: 5beb36656d76b8cab0520ee9185273f7f3f1527d8cab350a8a977d3cb796d8ab
+api SHA256（变异前后一致）: 7b82e0a46751118431f85d80d119d556d1c06ad3be3fe12f812e7792e79a6c50
+=== 5/5 核对 MANIFEST ===
+.github/workflows/ci.yml: OK
+.gitignore: OK
+ACCEPTANCE-EVIDENCE.md: OK
+README.md: OK
+docs/screenshots/booking-list.png: OK
+docs/screenshots/schedule-batch-modal.png: OK
+docs/screenshots/schedule-week.png: OK
+docs/screenshots/sync-errors.png: OK
+evidence/build-20261127.log: OK
+evidence/mutation-check-20261127.log: OK
+evidence/pytest-20261127.log: OK
+evidence/screenshots-20261127.log: OK
+index.html: OK
+package-lock.json: OK
+package.json: OK
+public/mockServiceWorker.js: OK
+scripts/mutation_check.cjs: OK
+scripts/screenshots.mjs: OK
+setup.sh: OK
+src/App.tsx: OK
+src/lib/api.ts: OK
+src/lib/masking.ts: OK
+src/lib/mockData.ts: OK
+src/lib/schedule.ts: OK
+src/main.tsx: OK
+src/mocks/browser.ts: OK
+src/mocks/handlers.ts: OK
+src/mocks/server.ts: OK
+src/pages/BookingListPage.tsx: OK
+src/pages/SyncErrorsPage.tsx: OK
+src/pages/VisitSchedulePage.tsx: OK
+tests/setup.ts: OK
+tests/test_ac1_close_slot.test.tsx: OK
+tests/test_ac2_masking.test.tsx: OK
+tests/test_ac3_batch_retry.test.tsx: OK
+tsconfig.json: OK
+vite.config.ts: OK
+SELFTEST: PASS

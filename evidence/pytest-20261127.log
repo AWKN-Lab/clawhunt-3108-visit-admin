@@ -1,0 +1,23 @@
+
+> clawhunt-3108-visit-admin@1.0.0 test
+> vitest run
+
+
+ RUN  v3.2.7 /home/hatch/workspace/goals/20/hidden_files/bid-optimize-20261127/3108-build/repo
+
+ ✓ tests/test_ac2_masking.test.tsx (6 tests) 1695ms
+   ✓ AC2 预约名单访客打码 > 名单表格显示打码后的姓名与手机号，不出现完整手机号  624ms
+   ✓ AC2 预约名单访客打码 > 标记到访后状态变为已到访  399ms
+ ✓ tests/test_ac3_batch_retry.test.tsx (3 tests) 1895ms
+   ✓ AC3 同步异常批量重试 > 勾选 3 条并点击批量重试后，mock 收到 3 次重试请求  1429ms
+   ✓ AC3 同步异常批量重试 > 单条重试只发一次请求，重试次数 +1  309ms
+ ✓ tests/test_ac1_close_slot.test.tsx (5 tests) 2583ms
+   ✓ AC1 关闭含已确认预约的时段 > 关闭含 2 个已确认预约的时段，确认框显示将取消的预约数量  1183ms
+   ✓ AC1 关闭含已确认预约的时段 > 关闭无已确认预约的时段，确认框显示将取消 0 个预约  704ms
+   ✓ AC1 关闭含已确认预约的时段 > 确认关闭后时段变已关闭，消息报已取消 2 个预约  424ms
+
+ Test Files  3 passed (3)
+      Tests  14 passed (14)
+   Start at  11:33:13
+   Duration  54.40s (transform 17.69s, setup 10.54s, collect 121.26s, tests 6.17s, environment 15.46s, prepare 2.34s)
+
